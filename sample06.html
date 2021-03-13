@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>トランジション</title>
+    <style>
+        .flip-list-move {
+            transition: transform .5s;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <button v-on:click="shuffle">シャッフル</button>
+        <transition-group name="flip-list" tag="ul">
+            <li v-for="pref in prefs" v-bind:key="pref.name">
+                {{ pref.name }}
+            </li>
+        </transition-group>
+    </div>
+    <script src="vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script>
+        const vue = new Vue({
+            el: "#app",
+            data: {
+                prefs: [
+                    {name: "A"},
+                    {name: "B"},
+                    {name: "C"},
+                ]
+            },
+            methods: {
+                shuffle: function() {
+                    this.prefs = _.shuffle(this.prefs)
+                }
+            }
+        });
+    </script>
+</body>
+</html>
