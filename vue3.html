@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js入門講座【最新のバージョン3対応】基礎から学ぶVue js 3 </title>
+</head>
+<body>
+    <style>
+        .blue {
+            color: blue;
+        }
+        .red {
+            color: red;
+        }
+    </style>
+    <div id="app1">
+        <p>app1: {{ message }}</p>
+
+        <p>{{count}}回</p>
+        <button @click="increment">カウントアップ</button>
+
+        <p v-if="seen">あいうえお</p>
+        <button @click="off">OFF</button>
+
+        <p :class="class1">{{class1}}</p>
+
+        <ul>
+            <li v-for="todo in todos">
+                {{todo.text}}
+            </li>
+        </ul>
+
+        <ul>
+            <template1 prop1="次へ"></template1>
+            <template1 prop1="前へ"></template1>
+            <template1 :prop1="varString"></template1>
+        </ul>
+
+        <template2
+            v-for="item in items"
+            :prop1="item"
+            prop2="です"></template2>
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        const App1 = {
+            data() {
+                return { 
+                    message: "Hello",
+                    count: 0,
+                    seen: true,
+                    class1: "blue",
+                    todos: [
+                        {text: "A"},
+                        {text: "B"},
+                        {text: "C"},
+                    ],
+                    varString: "Hello",
+                    items: [
+                        {id: 1, text: "A"},
+                        {id: 2, text: "B"},
+                        {id: 3, text: "C"},
+                    ]
+                }
+            },
+            methods: {
+                increment: function() {
+                    this.count++;
+                },
+                off: function() {
+                    this.seen = false;
+                }
+            }
+        }
+        app1 = Vue.createApp(App1);
+
+        app1.component('template1', {
+            props: ['prop1'],
+            template: `
+                <button>{{prop1}}</button>
+                <br>
+                `
+        })
+
+        app1.component('template2', {
+            props: ['prop1', 'prop2'],
+            template: `
+            <li>{{prop1.id}}は{{prop1.text}}{{prop2}}</li>
+            `
+        })
+
+        app1.mount('#app1')
+    </script>
+</body>
+</html>
