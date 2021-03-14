@@ -38,22 +38,26 @@
             el: "#app",
             data: {
                 newItem: "",
-                todos: [{
-                    title:'task1',
-                    isDone: false
-                },{
-                    title:'task2',
-                    isDone: false
-                },{
-                    title:'task3',
-                    isDone: true
-                }
-                ]
+                todos: []
             },
             computed: {
                 remaining: function () {
                     return this.todos.filter(todo => !todo.isDone);
                 }
+            },
+            watch: {
+                // todos: function(){
+                //     localStorage.setItem('todos', JSON.stringify(this.todos));
+                // }
+                todos: {
+                    handler: function(){
+                        localStorage.setItem('todos', JSON.stringify(this.todos));
+                    },
+                    deep: true
+                }
+            },
+            mounted: function() {
+                this.todos = JSON.parse(localStorage.getItem('todos')) || [];
             },
             methods: {
                 addItem: function(e){
