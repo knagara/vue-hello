@@ -9,10 +9,11 @@
 </head>
 <body>
     <div id="app">
-        <like-component message="Like"></like-component>
-        <like-component message="Awesome"></like-component>
-        <like-component message="Great"></like-component>
-        <like-component></like-component>
+        <p>Total likes: {{ total }}</p>
+        <like-component message="Like" @increment="incrementTotal"></like-component>
+        <like-component message="Awesome" @increment="incrementTotal"></like-component>
+        <like-component message="Great" @increment="incrementTotal"></like-component>
+        <like-component @increment="incrementTotal"></like-component>
     </div>
     
     <script src="vue.js"></script>
@@ -34,6 +35,7 @@
             methods: {
                 countUp: function(){
                     this.count++;
+                    this.$emit('increment')
                 }
             }
         })
@@ -42,6 +44,14 @@
             el: "#app",
             components: {
                 'like-component': likeComponent
+            },
+            data: {
+                total: 0
+            },
+            methods: {
+                incrementTotal: function(){
+                    this.total++;
+                }
             }
         })
     </script>
