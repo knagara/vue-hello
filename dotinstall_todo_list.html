@@ -9,18 +9,21 @@
 </head>
 <body>
     <div id="app" class="container">
-        <h1>TODOリスト</h1>
-        <ul v-if="todos.length">
+        <h1>TODOリスト
+            <span class="info">({{ remaining }} / {{ todos.length }})</span>
+        </h1>
+        <ul>
+        <!-- <ul v-if="todos.length"> -->
             <li v-for="(todo, index) in todos">
                 <input type="checkbox" v-model="todo.isDone">
                 <span :class="{done: todo.isDone}">{{todo.title}}</span>
                 <span @click="deleteItem(index)" class="command">[x]</span>
             </li>
-            <!-- <li v-show="!todos.length">TODOがありません</li> -->
+            <li v-show="!todos.length">TODOがありません</li>
         </ul>
-        <ul v-else>
+        <!-- <ul v-else>
             <li>TODOがありません</li>
-        </ul>
+        </ul> -->
         <form @submit.prevent="addItem">
             <input type="text" v-model="newItem">
             <input type="submit" value="Add">
@@ -44,6 +47,11 @@
                     isDone: false
                 }
                 ]
+            },
+            computed: {
+                remaining: function () {
+                    return this.todos.filter(todo => !todo.isDone).length;
+                }
             },
             methods: {
                 addItem: function(e){
