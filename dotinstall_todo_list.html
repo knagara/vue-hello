@@ -61,6 +61,10 @@
             },
             methods: {
                 addItem: function(e){
+                    if(!this.newItem){
+                        alert("入力してください");
+                        return;
+                    }
                     var item = {
                         title: this.newItem,
                         isDone: false
