@@ -12,7 +12,8 @@
         <h1>TODOリスト</h1>
         <ul>
             <li v-for="(todo, index) in todos">
-                {{todo}}
+                <input type="checkbox" v-model="todo.isDone">
+                <span :class="{done: todo.isDone}">{{todo.title}}</span>
                 <span @click="deleteItem(index)" class="command">[x]</span>
             </li>
         </ul>
@@ -28,15 +29,25 @@
             el: "#app",
             data: {
                 newItem: "",
-                todos: [
-                    'task1',
-                    'task2',
-                    'task3'
+                todos: [{
+                    title:'task1',
+                    isDone: false
+                },{
+                    title:'task2',
+                    isDone: true
+                },{
+                    title:'task3',
+                    isDone: false
+                }
                 ]
             },
             methods: {
                 addItem: function(e){
-                    this.todos.push(this.newItem);
+                    var item = {
+                        title: this.newItem,
+                        isDone: false
+                    };
+                    this.todos.push(item);
                     this.newItem = "";
                 },
                 deleteItem: function(index){
