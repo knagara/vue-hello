@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODOリスト</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div id="app" class="container">
+        <h1>TODOリスト</h1>
+        <ul>
+            <li v-for="todo in todos">{{todo}}</li>
+        </ul>
+        <form>
+            <input type="text">
+            <input type="submit" value="Add">
+        </form>
+    </div>
+
+    <script src="vue.js"></script>
+    <script>
+        new Vue({ 
+            el: "#app",
+            data: {
+                todos: [
+                    'task1',
+                    'task2',
+                    'task3'
+                ]
+            }
+        })
+    </script>
+</body>
+</html>
